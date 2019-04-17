@@ -729,3 +729,29 @@
 2019-04-10 10:16:21 - PHP Notice:  Undefined index: quantity in /var/www/opencart.org/public_html/upload/catalog/controller/rest/cart.php on line 89
 2019-04-10 10:16:52 - PHP Notice:  Undefined property: Request::$put in /var/www/opencart.org/public_html/upload/catalog/controller/rest/cart.php on line 89
 2019-04-10 10:16:52 - PHP Notice:  Undefined property: Request::$put in /var/www/opencart.org/public_html/upload/catalog/controller/rest/cart.php on line 89
+2019-04-16 11:32:44 - PHP Notice:  Undefined index: quantity in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/cart.php on line 88
+2019-04-16 12:12:22 - PHP Notice:  Undefined index:  in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 57
+2019-04-16 12:13:32 - PHP Notice:  Undefined index:  in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 57
+2019-04-16 12:14:38 - PHP Notice:  Undefined index:  in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 57
+2019-04-16 12:14:59 - PHP Notice:  Undefined index:  in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 57
+2019-04-16 12:16:46 - PHP Notice:  Undefined index:  in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 57
+2019-04-16 12:17:29 - PHP Notice:  Undefined index:  in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 57
+2019-04-16 12:17:47 - PHP Notice:  Undefined index:  in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 57
+2019-04-16 12:18:49 - PHP Notice:  Indirect modification of overloaded property ControllerRestCart::$json has no effect in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/cart.php on line 75
+2019-04-16 12:18:49 - PHP Notice:  Undefined variable: json in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/cart.php on line 78
+2019-04-16 12:19:37 - PHP Notice:  Indirect modification of overloaded property ControllerRestCart::$json has no effect in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/cart.php on line 75
+2019-04-16 12:19:37 - PHP Notice:  Undefined variable: json in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/cart.php on line 78
+2019-04-16 12:46:23 - PHP Notice:  Undefined variable: json in /var/www/opencart-api.loc/public_html/upload/system/engine/apiController.php on line 34
+2019-04-16 13:21:23 - PHP Notice:  Undefined variable: json in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/category.php on line 26
+2019-04-16 13:53:41 - PHP Notice:  Undefined variable: parent_id in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 20
+2019-04-17 6:12:00 - PHP Notice:  Undefined index: discount in /var/www/opencart-api.loc/public_html/upload/catalog/model/api/product.php on line 24
+2019-04-17 6:45:21 - PHP Notice:  Undefined index: payment_address in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:45:21 - PHP Notice:  Undefined variable: total in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:45:21 - PHP Notice:  Undefined index: payment_address in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:45:21 - PHP Notice:  Undefined variable: total in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:45:38 - PHP Notice:  Undefined index: payment_address in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:45:38 - PHP Notice:  Undefined variable: total in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:45:38 - PHP Notice:  Undefined index: payment_address in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:45:38 - PHP Notice:  Undefined variable: total in /var/www/opencart-api.loc/public_html/upload/catalog/controller/rest/product.php on line 118
+2019-04-17 6:50:52 - PHP Notice:  Undefined index: country_id in /var/www/opencart-api.loc/public_html/upload/catalog/model/extension/payment/cod.php on line 6
+2019-04-17 6:50:52 - PHP Notice:  Undefined index: zone_id in /var/www/opencart-api.loc/public_html/upload/catalog/model/extension/payment/cod.php on line 6

@@ -1,14 +1,9 @@
 <?php
-function return_response($code, $msg)
+function get_input_stream_data()
 {
-    header("HTTP/1.1 {$code}");
-    header('Content-Type: application/json');
-    echo json_encode($msg);
-    exit;
-}
-function isApiRoute($path)
-{
-    return preg_match("/api/i", $path);
+    $data = [];
+    parse_str(file_get_contents("php://input"),$data);
+    return $data;
 }
 /**
  * Get header Authorization

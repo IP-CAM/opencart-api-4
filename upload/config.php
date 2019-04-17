@@ -1,15 +1,15 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://opencart.org/');
+define('HTTP_SERVER', 'http://opencart-api.loc/');
 
 // HTTPS
-define('HTTPS_SERVER', 'http://opencart.org/');
+define('HTTPS_SERVER', 'http://opencart-api.loc/');
 
 // DIR
-define('DIR_APPLICATION', '/var/www/opencart.org/public_html/upload/catalog/');
-define('DIR_SYSTEM', '/var/www/opencart.org/public_html/upload/system/');
-define('DIR_IMAGE', '/var/www/opencart.org/public_html/upload/image/');
-define('DIR_STORAGE', '/var/www/opencart.org/public_html/storage/');
+define('DIR_APPLICATION', '/var/www/opencart-api.loc/public_html/upload/catalog/');
+define('DIR_SYSTEM', '/var/www/opencart-api.loc/public_html/upload/system/');
+define('DIR_IMAGE', '/var/www/opencart-api.loc/public_html/upload/image/');
+define('DIR_STORAGE', '/var/www/opencart-api.loc/public_html/storage/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/theme/');
 define('DIR_CONFIG', DIR_SYSTEM . 'config/');

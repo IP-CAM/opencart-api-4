@@ -1,6 +1,8 @@
 <?php
 
-class ControllerRestSession extends Controller
+require_once(DIR_SYSTEM . 'engine/apiController.php');
+
+class ControllerRestSession extends apiController
 {
 
     public function index()
@@ -22,6 +24,8 @@ class ControllerRestSession extends Controller
 
             $session->start();
 
+            $session->data['api_id'] = $api_info['api_id'];
+
             $currency_code = $this->config->get('config_currency');
             $session->data['currency'] = $currency_code;
 
@@ -35,7 +39,6 @@ class ControllerRestSession extends Controller
 
         }
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        $this->sendResponse($json);
     }
 }

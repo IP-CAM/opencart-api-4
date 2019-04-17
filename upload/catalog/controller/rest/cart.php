@@ -1,72 +1,94 @@
 <?php
 
-class ControllerRestCart extends Controller
-{
+require_once(DIR_SYSTEM . 'engine/apiController.php');
+require_once(DIR_SYSTEM.'helper/api.php');
 
-    public function add()
+class ControllerRestCart extends apiController
+{
+    public function index()
     {
+        $this->checkToken();
 
         $this->load->language('api/cart');
 
-        $json = array();
+        $result = array();
 
-        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-            if (isset($this->request->post['product_id'])) {
-
-                $this->load->model('catalog/product');
-
-                $product_info = $this->model_catalog_product->getProduct($this->request->post['product_id']);
-
-                if ($product_info) {
-                    if (isset($this->request->post['quantity'])) {
-                        $quantity = $this->request->post['quantity'];
-                    } else {
-                        $quantity = 1;
-                    }
-
-                    if (isset($this->request->post['option'])) {
-                        $option = array_filter($this->request->post['option']);
-                    } else {
-                        $option = array();
-                    }
-
-                    $product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
-
-                    foreach ($product_options as $product_option) {
-                        if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
-                            $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
-                        }
-                    }
-
-                    if (!isset($json['error']['option'])) {
-                        $this->cart->add($this->request->post['product_id'], $quantity, $option);
-
-                        $json['success'] = $this->language->get('text_success');
-
-                        unset($this->session->data['shipping_method']);
-                        unset($this->session->data['shipping_methods']);
-                        unset($this->session->data['payment_method']);
-                        unset($this->session->data['payment_methods']);
-                    }
-                } else {
-                    $json['error']['store'] = $this->language->get('error_store');
-                }
-            }
+        switch ($this->request->server['REQUEST_METHOD']) {
+            case 'POST' :
+                $result = $this->addProductToCart();
+                break;
+            case 'PUT' :
+                $data = get_input_stream_data();
+                $result = $this->updateCartQuantity($data);
+                break;
+            case 'GET':
+                $result = $this->products();
+                break;
+            case 'DELETE':
+                $data = get_input_stream_data();
+                $result = $this->removeProductFromCart($data);
+                break;
         }
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        $this->sendResponse($result);
     }
 
-    public function edit()
+    private function addProductToCart()
+    {
+        if (isset($this->request->post['product_id'])) {
+
+            $this->load->model('catalog/product');
+
+            $product_info = $this->model_catalog_product->getProduct($this->request->post['product_id']);
+
+            if ($product_info) {
+                if (isset($this->request->post['quantity'])) {
+                    $quantity = $this->request->post['quantity'];
+                } else {
+                    $quantity = 1;
+                }
+
+                if (isset($this->request->post['option'])) {
+                    $option = array_filter($this->request->post['option']);
+                } else {
+                    $option = array();
+                }
+
+                $product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
+
+                foreach ($product_options as $product_option) {
+                    if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
+                        $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+                    }
+                }
+
+                if (!isset($json['error']['option'])) {
+                    $this->cart->add($this->request->post['product_id'], $quantity, $option);
+
+                    $json['success'] = $this->language->get('text_success');
+
+                    unset($this->session->data['shipping_method']);
+                    unset($this->session->data['shipping_methods']);
+                    unset($this->session->data['payment_method']);
+                    unset($this->session->data['payment_methods']);
+                }
+            } else {
+                $json['error'][] = "Product not found";
+                $this->statusCode = 400;
+            }
+            return $json;
+        }
+    }
+
+    private function updateCartQuantity($data)
     {
         $this->load->language('api/cart');
 
         $json = array();
 
-        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 
-            $this->cart->update($this->request->post['key'], $this->request->post['quantity']);
+        if (isset($data['quantity']) && isset($data['key'])) {
+            $this->cart->update($data['key'], $data['quantity']);
 
             $json['success'] = $this->language->get('text_success');
 
@@ -75,41 +97,43 @@ class ControllerRestCart extends Controller
             unset($this->session->data['payment_method']);
             unset($this->session->data['payment_methods']);
             unset($this->session->data['reward']);
-
+        } else {
+            $json['error'][] = "Quantity and key parameters are required";
+            $this->statusCode = 400;
         }
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        return $json;
     }
 
-    public function remove()
+    private function removeProductFromCart($data)
     {
         $this->load->language('api/cart');
 
         $json = array();
 
-        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-            // Remove
-            if (isset($this->request->post['key'])) {
-                $this->cart->remove($this->request->post['key']);
+        // Remove
+        if (isset($data['key'])) {
+            $this->cart->remove($data['key']);
 
-                unset($this->session->data['vouchers'][$this->request->post['key']]);
+            unset($this->session->data['vouchers'][$data['key']]);
 
-                $json['success'] = $this->language->get('text_success');
+            $json['success'] = $this->language->get('text_success');
 
-                unset($this->session->data['shipping_method']);
-                unset($this->session->data['shipping_methods']);
-                unset($this->session->data['payment_method']);
-                unset($this->session->data['payment_methods']);
-                unset($this->session->data['reward']);
-            }
+            unset($this->session->data['shipping_method']);
+            unset($this->session->data['shipping_methods']);
+            unset($this->session->data['payment_method']);
+            unset($this->session->data['payment_methods']);
+            unset($this->session->data['reward']);
+        } else {
+            $this->statusCode = 400;
+            $json['error'][] = "Key parameter are required";
         }
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+
+        return $json;
     }
 
-    public function products()
+    private function products()
     {
         $this->load->language('api/cart');
 
@@ -234,8 +258,6 @@ class ControllerRestCart extends Controller
                 'text' => $this->currency->format($total['value'], $this->session->data['currency'])
             );
         }
-
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        return $json;
     }
 }

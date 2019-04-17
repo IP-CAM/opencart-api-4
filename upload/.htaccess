@@ -25,6 +25,17 @@ RewriteBase /
 RewriteRule ^sitemap.xml$ index.php?route=extension/feed/google_sitemap [L]
 RewriteRule ^googlebase.xml$ index.php?route=extension/feed/google_base [L]
 RewriteRule ^system/storage/(.*) index.php?route=error/not_found [L]
+
+RewriteRule ^api/session index.php?route=rest/session  [L]
+RewriteRule ^api/cart index.php?route=rest/cart  [L]
+
+RewriteRule ^api/categories/parent/?([0-9]+) index.php?route=rest/category&parent=$1  [L]
+RewriteRule ^api/categories index.php?route=rest/category  [L]
+
+RewriteRule ^api/products/category/?([-a-zA-Z0-9_&\|\s/.]+)/sort/?([a-zA-Z]+)/order/?([a-zA-Z]+) index.php?route=rest/product&category_id=$1&sort=$2&order=$3 [L]
+RewriteRule ^api/products/category/?([0-9]+) index.php?route=rest/product&category_id=$1  [L]
+RewriteRule ^api/products/?([0-9]+) index.php?route=rest/product&product_id=$1  [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)

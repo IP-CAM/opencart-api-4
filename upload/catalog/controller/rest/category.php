@@ -1,14 +1,30 @@
 <?php
-class ControllerRestCategory extends Controller {
 
-	public function index() {
+require_once(DIR_SYSTEM . 'engine/apiController.php');
 
-        $this->load->model('api/category');
+class ControllerRestCategory extends apiController
+{
 
-        $json['categories'] = $this->model_api_category->getCategories();
+    public function index()
+    {
+        $json = [];
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+        $this->checkToken();
 
-	}
+        if ($this->request->server['REQUEST_METHOD'] == 'GET') {
+            if (isset($this->request->get['parent'])) {
+                $parent_id = $this->request->get['parent'];
+            }
+            $this->load->model('api/category');
+
+            $json['categories'] = $this->model_api_category->getCategories($parent_id);
+
+        } else {
+            $this->statusCode = 405;
+            $this->allowedHeaders = ['GET'];
+        }
+
+        $this->sendResponse($json);
+
+    }
 }
